@@ -1,0 +1,11 @@
+{
+  "name": "ppt-style-04-document",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "marp deck.md --theme-set theme.css -o dist/deck.html && node scripts/inject-mermaid.mjs dist/deck.html"
+  },
+  "dependencies": {
+    "@marp-team/marp-cli": "4.5.1"
+  }
+}

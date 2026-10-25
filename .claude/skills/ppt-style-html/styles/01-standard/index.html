@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 상반기 제품 로드맵 · 스타일 1 시작본</title>
+<!-- style-profile
+purpose: report
+audience: team
+primary: 1 Standard (HTML + Tailwind + Lucide, html-ppt slide format)
+blend: none
+rule: 4 (default)
+-->
+<style>
+  @font-face { font-family: "Pretendard"; font-weight: 400; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2"); }
+  @font-face { font-family: "Pretendard"; font-weight: 600; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2") format("woff2"); }
+  @font-face { font-family: "Pretendard"; font-weight: 700; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2"); }
+  body { margin: 0; padding: 24px 0; background: #e5e7eb; font-family: "Pretendard", "Malgun Gothic", sans-serif; }
+  /* Each slide is exactly 1280x720 px (16:9). The PPT converter reads every section.slide, so all slides stay in the page. */
+  section.slide { position: relative; box-sizing: border-box; width: 1280px; height: 720px; margin: 0 auto 24px; padding: 64px 96px; overflow: hidden; background: #ffffff; color: #111111; }
+  section.slide .notes { display: none; }
+  /* Presenter: ?present shows one slide at a time (arrows, Home, End), scaled to fit the window. The default page is stacked.
+     Hidden slides keep their layout (visibility, not display), so charts and diagrams are drawn at full size. */
+  body.present { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  body.present section.slide { position: fixed; left: 50%; top: 50%; margin: 0; visibility: hidden; transform: translate(-50%, -50%) scale(var(--fit, 1)); }
+  body.present section.slide.current { visibility: visible; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11/dist/index.global.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<section class="slide flex flex-col justify-center gap-6">
+  <p class="text-xl font-semibold tracking-[0.2em] text-[#0369a1]">PRODUCT ROADMAP</p>
+  <h1 class="text-7xl font-bold leading-tight">2026 상반기 제품 로드맵</h1>
+  <p class="text-2xl text-[#555555]">발표 시작본 · 샘플 콘텐츠</p>
+  <aside class="notes">발표 인사와 주제 소개.</aside>
+</section>
+
+<section class="slide flex flex-col gap-10">
+  <h2 class="text-5xl font-bold">신규 사용자 전환율 18% 개선</h2>
+  <div class="grid grid-cols-3 gap-8">
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <i data-lucide="layers" class="h-10 w-10 text-[#0369a1]"></i>
+      <p class="mt-6 text-2xl font-semibold">온보딩 4단계 → 3단계</p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">가입 후 이탈이 많던 단계를 합쳤습니다.</p>
+    </div>
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <i data-lucide="trending-up" class="h-10 w-10 text-[#0369a1]"></i>
+      <p class="mt-6 text-2xl font-semibold">체크리스트 완료율 +24%p</p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">첫 주 안에 핵심 기능을 써 본 사용자가 늘었습니다.</p>
+    </div>
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <i data-lucide="zap" class="h-10 w-10 text-[#0369a1]"></i>
+      <p class="mt-6 text-2xl font-semibold">무료 체험 → 유료 <span class="whitespace-nowrap">2.1배</span></p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">체험 기간 중 안내 메일을 개선했습니다.</p>
+    </div>
+  </div>
+  <aside class="notes">세 가지 지표가 전환율 개선을 뒷받침합니다.</aside>
+</section>
+
+<section class="slide flex flex-col gap-8">
+  <div>
+    <h2 class="text-5xl font-bold">분기별 활성 사용자</h2>
+    <p class="mt-2 text-xl text-[#555555]">단위: 백만 명</p>
+  </div>
+  <!-- Bar heights are typed in at 140px per unit: recompute them when a value changes. -->
+  <div class="flex h-96 shrink-0 items-end gap-10 border-b-2 border-[#cbd5e1] px-10">
+    <div class="flex flex-1 flex-col justify-end">
+      <p class="mb-3 text-center text-xl font-semibold">1.2</p>
+      <div class="shrink-0 bg-[#7dd3fc]" style="height: 168px"></div>
+    </div>
+    <div class="flex flex-1 flex-col justify-end">
+      <p class="mb-3 text-center text-xl font-semibold">1.5</p>
+      <div class="shrink-0 bg-[#38bdf8]" style="height: 210px"></div>
+    </div>
+  </div>
+  <div class="flex gap-10 px-10 text-xl text-[#555555]">
+    <span class="flex-1 text-center">Q1</span>
+    <span class="flex-1 text-center">Q2</span>
+  </div>
+  <aside class="notes">Q2에 1.5백만 명으로 상반기 가장 높았습니다.</aside>
+</section>
+
+<section class="slide flex flex-col gap-12">
+  <h2 class="text-5xl font-bold">진행 단계</h2>
+  <div class="flex flex-1 items-center justify-between">
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="flex h-24 w-24 items-center justify-center rounded-full bg-[#e0f2fe]"><i data-lucide="search" class="h-10 w-10 text-[#0369a1]"></i></div>
+      <p class="text-2xl font-semibold">리서치</p>
+    </div>
+    <i data-lucide="chevron-right" class="h-10 w-10 text-[#555555]"></i>
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="flex h-24 w-24 items-center justify-center rounded-full bg-[#e0f2fe]"><i data-lucide="pen-tool" class="h-10 w-10 text-[#0369a1]"></i></div>
+      <p class="text-2xl font-semibold">설계</p>
+    </div>
+    <i data-lucide="chevron-right" class="h-10 w-10 text-[#555555]"></i>
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="flex h-24 w-24 items-center justify-center rounded-full bg-[#e0f2fe]"><i data-lucide="code" class="h-10 w-10 text-[#0369a1]"></i></div>
+      <p class="text-2xl font-semibold">개발</p>
+    </div>
+    <i data-lucide="chevron-right" class="h-10 w-10 text-[#555555]"></i>
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="flex h-24 w-24 items-center justify-center rounded-full bg-[#e0f2fe]"><i data-lucide="rocket" class="h-10 w-10 text-[#0369a1]"></i></div>
+      <p class="text-2xl font-semibold">출시</p>
+    </div>
+  </div>
+  <aside class="notes">네 단계 순서로 진행합니다.</aside>
+</section>
+
+<section class="slide flex flex-col justify-center gap-10">
+  <h2 class="text-5xl font-bold">다음 분기 목표</h2>
+  <ul class="flex flex-col gap-6 text-3xl">
+    <li class="flex items-center gap-4"><i data-lucide="check" class="h-8 w-8 text-[#0369a1]"></i>온보딩 완료율 70% 달성</li>
+    <li class="flex items-center gap-4"><i data-lucide="check" class="h-8 w-8 text-[#0369a1]"></i>유료 전환 경로 A/B 테스트</li>
+    <li class="flex items-center gap-4"><i data-lucide="check" class="h-8 w-8 text-[#0369a1]"></i>분기 리뷰 자료 자동 생성</li>
+  </ul>
+  <p class="text-2xl text-[#555555]">질문과 의견을 받습니다.</p>
+  <aside class="notes">질문을 받고 마무리합니다.</aside>
+</section>
+
+<script>
+  // Lucide replaces the <i data-lucide> placeholders with inline SVG icons.
+  lucide.createIcons();
+  // Presenter (optional): ?present shows one slide at a time. The converter reads the default stacked page.
+  (function () {
+    if (!new URLSearchParams(location.search).has('present')) return;
+    const slides = [...document.querySelectorAll('section.slide')];
+    let i = 0;
+    const show = (n) => {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, k) => s.classList.toggle('current', k === i));
+    };
+    document.body.classList.add('present');
+    const fit = () => document.documentElement.style.setProperty('--fit', Math.min(innerWidth / 1280, innerHeight / 720));
+    fit();
+    addEventListener('resize', fit);
+    show(0);
+    addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) show(i + 1);
+      else if (['ArrowLeft', 'PageUp'].includes(e.key)) show(i - 1);
+      else if (e.key === 'Home') show(0);
+      else if (e.key === 'End') show(slides.length - 1);
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "ppt-template-html-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "jszip": "3.10.2",
+    "playwright": "1.64.0"
+  }
+}

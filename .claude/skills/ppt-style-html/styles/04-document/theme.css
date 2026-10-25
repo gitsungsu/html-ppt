@@ -1,0 +1,54 @@
+/* @theme sample */
+@import 'default';
+@font-face { font-family: "Pretendard"; font-weight: 400; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 600; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 700; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2"); }
+
+section {
+  font-family: "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  padding: 72px 96px;
+  font-size: 28px;
+}
+
+h1 {
+  font-size: 56px;
+  line-height: 1.2;
+  color: #111111;
+}
+
+li {
+  margin: 14px 0;
+}
+
+table {
+  font-size: 28px;
+}
+
+section.lead {
+  background: #ffffff;
+  color: #111111;
+  justify-content: center;
+}
+
+section.lead h1 {
+  font-size: 80px;
+  color: #111111;
+}
+
+section.lead p,
+section.lead li {
+  color: #555555;
+}
+
+section::after {
+  right: 64px;
+  bottom: 36px;
+}
+
+pre.mermaid {
+  background: transparent;
+  text-align: center;
+  font-size: 28px;
+}

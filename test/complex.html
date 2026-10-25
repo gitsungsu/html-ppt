@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>Stress</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#ddd;font-family:"Malgun Gothic",Arial,sans-serif;padding:20px 0}
+section.slide{position:relative;width:1280px;height:720px;margin:0 auto 20px;padding:48px 64px;background:#fff;color:#111;overflow:hidden}
+h2{font-size:36px;margin-bottom:20px}
+/* S1: dashboard grid, flex centering, badges, shadows, circles, opacity */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.kpi{background:#f1f5f9;border-radius:14px;padding:20px;box-shadow:0 4px 12px #0003}
+.kpi .n{font-size:44px;font-weight:800;color:#0ea5e9}
+.kpi .l{font-size:16px;color:#64748b}
+.badge{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 18px;border-radius:18px;background:#16a34a;color:#fff;font-size:16px;font-weight:700}
+.circle{width:80px;height:80px;border-radius:50%;background:#f97316;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700}
+.row{display:flex;gap:24px;align-items:center;margin-top:28px}
+.btn{width:220px;height:64px;border:3px solid #111;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.fade{opacity:.4;background:#ef4444;width:120px;height:64px;color:#fff;display:flex;align-items:center;justify-content:center}
+/* S2: absolute layout, rotation, mixed inline, highlight, nested lists */
+.abs{position:absolute}
+.hl{background:#fde047;padding:0 4px}
+ul.n1{margin-left:0;list-style:none}ul.n1 li{font-size:20px;line-height:1.5;margin-bottom:6px}
+ul.n1 ul{margin:6px 0 6px 28px;list-style:none}ul.n1 ul li{font-size:17px;color:#475569}
+/* S3: complex table */
+table{border-collapse:collapse;width:100%;font-size:18px}
+th,td{border:1px solid #94a3b8;padding:10px 14px;text-align:center}
+th{background:#1e293b;color:#fff}
+td.l{text-align:left;font-weight:700;background:#f1f5f9}
+/* S4: two-column text + image-ish + gradient card + clip */
+.cols{column-count:2;column-gap:40px;font-size:18px;line-height:1.6}
+.grad{background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;border-radius:20px;padding:24px;font-size:26px;font-weight:700}
+.clip{width:300px;height:100px;overflow:hidden;border:2px solid #0ea5e9}
+.clip div{width:600px;font-size:30px;white-space:nowrap}
+.rt{display:inline-block;transform:rotate(-8deg);font-size:28px;font-weight:800;color:#dc2626;border:3px solid #dc2626;padding:6px 16px}
+.notes{display:none}
+</style></head><body>
+
+<section class="slide">
+  <h2>1. KPI 대시보드 (grid · flex 중앙정렬 · 그림자 · 투명도)</h2>
+  <div class="grid">
+    <div class="kpi"><div class="n">1,284</div><div class="l">활성 사용자</div></div>
+    <div class="kpi"><div class="n">98.2%</div><div class="l">가용성</div></div>
+    <div class="kpi"><div class="n">₩4.2억</div><div class="l">월 매출</div></div>
+    <div class="kpi"><div class="n">+18%</div><div class="l">전월 대비</div></div>
+  </div>
+  <div class="row">
+    <span class="badge">정상</span><div class="circle">A</div><div class="btn">버튼 텍스트</div><div class="fade">투명 40%</div>
+  </div>
+  <p style="margin-top:28px;font-size:20px;line-height:1.5">혼합 <b>굵게</b>, <i>기울임</i>, <u>밑줄</u>, <span style="color:#dc2626">빨강</span>, <span style="font-size:30px">큰 글씨</span> 가 한 문단에 섞여 있고 줄바꿈도 자연스럽게 일어나야 합니다. 두 번째 문장은 조금 더 길게 써서 여러 줄이 되도록 합니다.</p>
+  <aside class="notes">KPI 노트</aside>
+</section>
+
+<section class="slide" style="background:#0f172a;color:#e2e8f0">
+  <h2>2. 절대 위치 · 회전 · 하이라이트 · 중첩 리스트</h2>
+  <div class="abs" style="left:64px;top:130px;width:520px">
+    <ul class="n1">
+      <li>항목 하나 <span class="hl" style="color:#111">하이라이트</span>
+        <ul><li>하위 항목 1-1</li><li>하위 항목 1-2</li></ul></li>
+      <li>항목 둘 — 긴 문장이 들어가서 한 줄을 넘어 다음 줄로 자연스럽게 넘어가는지 확인합니다 확인합니다.</li>
+    </ul>
+    <ol style="margin:16px 0 0 24px;font-size:20px;line-height:1.6"><li>번호 1</li><li>번호 2</li></ol>
+  </div>
+  <div class="abs" style="left:680px;top:140px"><span class="rt">APPROVED</span></div>
+  <div class="abs" style="left:700px;top:300px;width:480px;height:260px;border:2px dashed #38bdf8;border-radius:24px;background:#1e293b99"></div>
+  <div class="abs" style="left:730px;top:330px;width:420px;font-size:22px;text-align:right;color:#38bdf8">우측 정렬 텍스트<br>둘째 줄 (br)</div>
+  <div class="abs" style="left:64px;bottom:40px;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#64748b">footer · uppercase spacing</div>
+</section>
+
+<section class="slide">
+  <h2>3. 복합 표 (colspan · rowspan · 배경 · 정렬)</h2>
+  <table>
+    <tr><th rowspan="2">구분</th><th colspan="2">2025</th><th colspan="2">2026</th></tr>
+    <tr><th>상반기</th><th>하반기</th><th>상반기</th><th>하반기</th></tr>
+    <tr><td class="l">매출</td><td>120</td><td>140</td><td>160</td><td style="background:#dcfce7;font-weight:700">190</td></tr>
+    <tr><td class="l">비용</td><td>80</td><td>90</td><td>95</td><td>100</td></tr>
+    <tr><td class="l">이익</td><td>40</td><td>50</td><td>65</td><td style="background:#dcfce7;font-weight:700">90</td></tr>
+  </table>
+  <svg width="560" height="200" viewBox="0 0 560 200" style="margin-top:30px">
+    <polyline points="0,150 100,120 200,130 300,70 400,90 540,20" fill="none" stroke="#0ea5e9" stroke-width="4"/>
+    <circle cx="300" cy="70" r="8" fill="#ef4444"/><text x="310" y="60" font-size="16" fill="#111">peak</text>
+  </svg>
+</section>
+
+<section class="slide" style="background:#fafaf9">
+  <h2>4. 다단 · 그라디언트 카드 · 잘림 · 외부 이미지</h2>
+  <div class="cols"><p>본문이 두 단으로 흐릅니다. 다단 레이아웃은 PPT에 직접 대응되는 개념이 없어서 텍스트가 한 상자로 합쳐질 수 있습니다. 이 부분이 어떻게 변환되는지 확인합니다. 본문이 두 단으로 흐릅니다. 다단 레이아웃은 PPT에 직접 대응되는 개념이 없어서 텍스트가 한 상자로 합쳐질 수 있습니다.</p></div>
+  <div style="display:flex;gap:30px;margin-top:30px;align-items:flex-start">
+    <div class="grad" style="width:420px">그라디언트 카드<br><span style="font-size:16px;font-weight:400">카드 위 글자는 네이티브여야 함</span></div>
+    <div class="clip"><div>잘리는 텍스트가 길게 이어집니다 이어집니다</div></div>
+    <img alt="" style="width:200px;height:120px;border-radius:12px" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120'><rect width='200' height='120' fill='%2314b8a6'/><circle cx='100' cy='60' r='40' fill='%23fff'/></svg>">
+  </div>
+</section>
+
+<section class="slide" style="background:#fff7ed">
+  <h2>5. 한계 극복: 변형 그룹 · z-index · text-shadow · inset · animation</h2>
+  <div class="abs" style="left:80px;top:130px;width:360px;height:200px;transform:rotate(6deg) scale(1.1);background:#fff;border:2px solid #fb923c;border-radius:16px;padding:20px;box-shadow:0 6px 16px #0003">
+    <div style="font-size:26px;font-weight:800;color:#c2410c">회전+확대 그룹</div>
+    <ul style="list-style:none;margin-top:10px"><li style="font-size:18px">자식 요소도 네이티브</li><li style="font-size:18px">텍스트 편집 가능</li></ul>
+    <div style="margin-top:10px;display:inline-block;background:#fb923c;color:#fff;padding:4px 12px;border-radius:12px;font-size:16px">chip</div>
+  </div>
+  <div class="abs" style="left:520px;top:140px;width:200px;height:120px;background:#3b82f6;z-index:1;color:#fff;font-size:20px;padding:12px">z=1 (위)</div>
+  <div class="abs" style="left:580px;top:190px;width:200px;height:120px;background:#ef4444;z-index:0;color:#fff;font-size:20px;padding:12px">z=0 (아래)</div>
+  <div class="abs" style="left:840px;top:140px;font-size:44px;font-weight:800;color:#fff;text-shadow:3px 3px 6px #000a;background:#64748b;padding:12px 20px;border-radius:12px">Shadow</div>
+  <div class="abs" style="left:840px;top:260px;width:300px;height:100px;background:#fef3c7;box-shadow:inset 0 0 20px #f59e0b;border-radius:12px;padding:16px;font-size:20px">inset 그림자 박스</div>
+  <div class="abs" style="left:80px;top:420px;width:1100px;font-size:20px;line-height:1.5" id="wrap">줄바꿈 정확도 시험: 이 문단은 브라우저와 PowerPoint의 글꼴 메트릭이 달라도 하드 줄바꿈 옵션을 쓰면 브라우저에서 보이는 줄 구분이 그대로 유지됩니다. 길이가 충분히 길어서 여러 줄로 나뉘는 문단입니다.</div>
+  <div class="abs" style="left:80px;top:560px;font-size:30px;color:#0ea5e9;animation:fadein 1s forwards;opacity:0">애니메이션 종료 상태</div>
+  <style>@keyframes fadein{from{opacity:0}to{opacity:1}}</style>
+</section>
+
+<section class="slide" style="background:radial-gradient(circle at center,#1e3a8a,#0b1020)">
+  <h2 style="color:#fff">6. 네이티브 그라디언트 · 벡터 SVG · 효과 폴백</h2>
+  <div class="abs" style="left:64px;top:130px;width:360px;height:140px;border-radius:20px;background:linear-gradient(90deg,#22d3ee,#6366f1 60%,#ec4899);color:#fff;font-size:26px;font-weight:800;padding:24px">그라디언트 카드 (네이티브)</div>
+  <div class="abs" style="left:460px;top:130px;width:200px;height:140px;border-radius:70px;background:radial-gradient(circle,#fde047,#f97316);color:#111;font-size:22px;display:flex;align-items:center;justify-content:center">radial</div>
+  <div class="abs" style="left:700px;top:130px;width:200px;height:140px;background:linear-gradient(to bottom,rgba(255,255,255,.9),rgba(255,255,255,0));border:2px solid #fff;color:#fff;font-size:22px;padding:20px">알파 그라디언트</div>
+  <div class="abs" style="left:940px;top:130px;width:260px;height:140px;background:#fef3c7;box-shadow:inset 0 0 24px #f59e0b;border-radius:12px;color:#111;font-size:20px;padding:20px">inset 네이티브</div>
+  <div class="abs" style="left:64px;top:320px;width:200px;height:80px;background:#fff;border-radius:10px;transform:scale(1.6,1);transform-origin:left center;color:#111;font-size:22px;display:flex;align-items:center;justify-content:center">scaleX</div>
+  <svg class="abs" style="left:420px;top:310px" width="220" height="120" viewBox="0 0 220 120"><rect x="5" y="40" width="40" height="70" fill="#22d3ee"/><rect x="65" y="15" width="40" height="95" fill="#a78bfa"/><path d="M5 100 L110 20 L215 60" stroke="#fde047" stroke-width="4" fill="none"/><text x="120" y="110" font-size="16" fill="#fff">vector</text></svg>
+  <div class="abs" style="left:700px;top:320px;width:160px;height:90px;background:#ef4444;filter:blur(3px);border-radius:12px;color:#fff;font-size:20px;padding:20px">blur</div>
+  <div class="abs" style="left:900px;top:320px;width:300px;height:90px;font-size:42px;font-weight:900;background:linear-gradient(90deg,#f43f5e,#facc15);-webkit-background-clip:text;color:transparent">Gradient Text</div>
+  <div class="abs" style="left:64px;top:470px;width:420px;height:140px;opacity:.5;background:#2563eb;border-radius:14px;color:#fff;font-size:24px;padding:24px">그룹 opacity 50%: 글자는 박스와 함께 흐려져야 함</div>
+  <div class="abs" style="left:520px;top:470px;font-size:26px;color:#fff;opacity:.5">박스 없는 글자 opacity 50%</div>
+</section>
+
+<section class="slide" style="background:#f1f5f9">
+  <h2>7. 클래스 SVG · 글자 외곽선 · 모서리별 radius · 둥근 클립 · drop-shadow · scaleX 글자</h2>
+  <style>.bar{fill:url(#g1)}.ln{stroke:#ef4444;stroke-width:3;fill:none}</style>
+  <svg class="abs" style="left:64px;top:130px" width="260" height="130" viewBox="0 0 260 130"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs><rect class="bar" x="10" y="30" width="50" height="90"/><rect class="bar" x="80" y="10" width="50" height="110"/><path class="ln" d="M10 100 L105 40 L240 70"/></svg>
+  <div class="abs" style="left:360px;top:130px;font-size:56px;font-weight:900;color:#fff;-webkit-text-stroke:3px #1e3a8a">Outline</div>
+  <div class="abs" style="left:640px;top:130px;font-size:56px;font-weight:900;background:linear-gradient(90deg,#f43f5e,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent">Live Gradient</div>
+  <div class="abs" style="left:64px;top:300px;width:240px;height:110px;background:#0ea5e9;border-radius:40px 8px 40px 8px;color:#fff;font-size:20px;padding:20px">모서리별 radius</div>
+  <div class="abs" style="left:340px;top:300px;width:300px;height:200px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 4px 14px #0003">
+    <div style="height:70px;background:#6366f1;color:#fff;font-size:24px;font-weight:700;padding:20px">둥근 카드 헤더</div>
+    <div style="padding:16px;font-size:18px;color:#334155">헤더는 부모 모서리를 따라 둥글게</div>
+    <img alt="" style="position:absolute;right:0;bottom:0;width:90px;height:60px" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='60'><rect width='90' height='60' fill='%2314b8a6'/></svg>">
+  </div>
+  <div class="abs" style="left:700px;top:300px;width:220px;height:110px;background:#fff;border-radius:16px;filter:drop-shadow(6px 8px 6px rgba(0,0,0,.35));color:#111;font-size:20px;padding:20px">drop-shadow 필터</div>
+  <div class="abs" style="left:980px;top:300px;width:120px;height:60px;transform:scaleX(1.8);transform-origin:left top;background:#fde047;font-size:22px;display:flex;align-items:center;justify-content:center;color:#111">scaleX</div>
+</section>
+
+<section class="slide" style="background:#ffffff">
+  <h2>8. 네이티브 filter(blur·색상) · skew · scaleX 글자 · blend(그림)</h2>
+  <div class="abs" style="left:64px;top:130px;width:200px;height:110px;background:#ef4444;border-radius:12px;filter:blur(4px)"></div>
+  <div class="abs" style="left:320px;top:130px;width:260px;height:130px;background:#2563eb;border-radius:12px;color:#fff;font-size:24px;padding:20px;filter:grayscale(1)">grayscale(1) 그룹<div style="margin-top:10px;background:#facc15;color:#111;display:inline-block;padding:4px 10px">chip</div></div>
+  <div class="abs" style="left:620px;top:130px;width:260px;height:130px;background:#2563eb;border-radius:12px;color:#fff;font-size:24px;padding:20px;filter:hue-rotate(120deg) saturate(1.4)">hue-rotate 그룹</div>
+  <div class="abs" style="left:920px;top:130px;width:260px;height:130px;background:#2563eb;border-radius:12px;color:#fff;font-size:24px;padding:20px;filter:sepia(1)">sepia(1) 그룹</div>
+  <div class="abs" style="left:64px;top:330px;width:260px;height:110px;background:#10b981;color:#fff;font-size:26px;font-weight:700;padding:20px;transform:skewX(-15deg)">skewX(-15deg) 박스</div>
+  <div class="abs" style="left:380px;top:330px;font-size:34px;font-weight:800;color:#111;transform:scaleX(2.2);transform-origin:left top">STRETCH</div>
+  <div class="abs" style="left:380px;top:400px;font-size:34px;font-weight:800;color:#111">STRETCH (원본)</div>
+  <div class="abs" style="left:860px;top:330px;width:180px;height:110px;background:#3b82f6"></div>
+  <div class="abs" style="left:930px;top:370px;width:180px;height:110px;background:#fde047;mix-blend-mode:multiply"></div>
+</section>
+
+<section class="slide" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">
+  <h2 style="color:#fff">9. blur 그룹(글자 포함) · backdrop-filter · skew 글자</h2>
+  <div class="abs" style="left:64px;top:140px;width:240px;height:120px;background:#fde047;border-radius:60px"></div>
+  <div class="abs" style="left:200px;top:200px;width:200px;height:200px;background:#ef4444;border-radius:50%"></div>
+  <div class="abs" style="left:120px;top:170px;width:340px;height:170px;border-radius:20px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.6);backdrop-filter:blur(10px);color:#fff;font-size:26px;font-weight:700;padding:28px">유리 패널 (backdrop-filter)<div style="font-size:18px;font-weight:400;margin-top:8px">패널과 글자는 네이티브</div></div>
+  <div class="abs" style="left:560px;top:150px;width:300px;height:130px;background:#0f172a;border-radius:16px;color:#fff;font-size:28px;font-weight:800;padding:30px;filter:blur(2px)">Blurred group</div>
+  <div class="abs" style="left:560px;top:320px;width:360px;font-size:40px;font-weight:800;color:#fff;transform:skewX(-18deg);transform-origin:left top">Skewed Text</div>
+</section>
+
+<section class="slide" style="background:#ffffff">
+  <h2>10. SVG filter(blur·drop-shadow) 벡터</h2>
+  <svg class="abs" style="left:64px;top:140px" width="520" height="220" viewBox="0 0 520 220"><defs><filter id="b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter><filter id="d" x="-20%" y="-20%" width="150%" height="150%"><feDropShadow dx="6" dy="8" stdDeviation="5" flood-color="#000" flood-opacity=".4"/></filter></defs>
+    <rect x="20" y="40" width="200" height="120" rx="14" fill="#ef4444" filter="url(#b)"/>
+    <rect x="290" y="40" width="200" height="120" rx="14" fill="#22c55e" filter="url(#d)"/></svg>
+  <svg class="abs" style="left:64px;top:380px" width="1100" height="200" viewBox="0 0 1100 200"><defs>
+    <filter id="s1" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/><feOffset in="b" dx="6" dy="8" result="o"/><feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s2"><feColorMatrix type="saturate" values="0"/></filter>
+    <filter id="s3" x="-30%" y="-30%" width="160%" height="160%"><feOffset in="SourceAlpha" dx="8" dy="8" result="o"/><feFlood flood-color="#7c3aed" flood-opacity=".6"/><feComposite in2="o" operator="in" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <rect x="20" y="30" width="200" height="120" rx="14" fill="#22c55e" filter="url(#s1)"/>
+    <rect x="320" y="30" width="200" height="120" rx="14" fill="#f59e0b" filter="url(#s2)"/>
+    <rect x="620" y="30" width="200" height="120" rx="14" fill="#06b6d4" filter="url(#s3)"/></svg>
+</section>
+
+<section class="slide" style="background:#f8fafc">
+  <h2>11. CSS url(#filter) · SVG foreignObject</h2>
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <filter id="blurF"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="dsF" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="8" dy="10" stdDeviation="6" flood-color="#1e293b" flood-opacity="0.5"/></filter>
+    <filter id="satF"><feColorMatrix type="saturate" values="0.15"/></filter>
+  </defs></svg>
+  <div class="abs" style="left:64px;top:140px;width:240px;height:140px;background:#ef4444;border-radius:16px;filter:url(#blurF)"></div>
+  <div class="abs" style="left:360px;top:140px;width:240px;height:140px;background:#fff;border-radius:16px;filter:url(#dsF)"></div>
+  <div class="abs" style="left:660px;top:140px;width:240px;height:140px;background:#22c55e;border-radius:16px;color:#fff;font-size:24px;padding:20px;filter:url(#satF)">saturate 0.15</div>
+  <svg class="abs" style="left:64px;top:360px" width="700" height="220" viewBox="0 0 700 220">
+    <rect x="0" y="0" width="700" height="220" rx="20" fill="#e0e7ff"/>
+    <circle cx="60" cy="60" r="40" fill="#6366f1"/>
+    <foreignObject x="120" y="30" width="520" height="160"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Malgun Gothic';font-size:28px;color:#111;padding:10px"><b>foreignObject HTML</b><br>네이티브 텍스트로 변환</div></foreignObject>
+  </svg>
+</section>
+
+<section class="slide" style="background:#f1f5f9">
+  <h2>12. 다단 url() 필터 · 확장 블렌드 모드</h2>
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <filter id="ctF" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR type="table" tableValues="0 0.5 1"/><feFuncG type="linear" slope="0.5" intercept="0.25"/><feFuncB type="gamma" amplitude="1" exponent="2" offset="0"/></feComponentTransfer></filter>
+    <filter id="cmF"><feColorMatrix type="matrix" values="0.6 0.3 0.1 0 0  0.1 0.8 0.1 0 0  0.2 0.2 0.6 0 0  0 0 0 1 0"/><feColorMatrix type="saturate" values="0.5"/></filter>
+    <filter id="shF" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/><feOffset in="b" dx="6" dy="8" result="o"/><feFlood flood-color="#0f172a" flood-opacity="0.45" result="f"/><feComposite in="f" in2="o" operator="in" result="s"/><feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="turbF"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+  </defs></svg>
+  <div class="abs" style="left:64px;top:140px;width:220px;height:140px;background:#f97316;border-radius:16px;filter:url(#ctF)"></div>
+  <div class="abs" style="left:320px;top:140px;width:220px;height:140px;background:#22c55e;border-radius:16px;filter:url(#cmF)"></div>
+  <div class="abs" style="left:576px;top:140px;width:220px;height:140px;background:#ffffff;border-radius:16px;filter:url(#shF)"></div>
+  <div class="abs" style="left:832px;top:140px;width:220px;height:140px;background:#6366f1;border-radius:16px;filter:url(#turbF)"></div>
+  <div class="abs" style="left:64px;top:340px;width:200px;height:160px;background:#f59e0b"></div>
+  <div class="abs" style="left:150px;top:380px;width:200px;height:160px;background:#2563eb;mix-blend-mode:overlay"></div>
+  <div class="abs" style="left:340px;top:340px;width:200px;height:160px;background:#f59e0b"></div>
+  <div class="abs" style="left:420px;top:380px;width:200px;height:160px;background:#2563eb;mix-blend-mode:color-dodge"></div>
+  <div class="abs" style="left:620px;top:340px;width:200px;height:160px;background:#f59e0b"></div>
+  <div class="abs" style="left:700px;top:380px;width:200px;height:160px;background:#2563eb;mix-blend-mode:exclusion"></div>
+  <div class="abs" style="left:900px;top:340px;width:200px;height:160px;background:#f59e0b"></div>
+  <div class="abs" style="left:980px;top:380px;width:200px;height:160px;background:#2563eb;mix-blend-mode:soft-light"></div>
+</section>
+
+<section class="slide" style="background:#f1f5f9">
+  <h2>13. 비분리 블렌드 모드 (hue · saturation · color · luminosity)</h2>
+  <div class="abs" style="left:64px;top:160px;width:260px;height:200px;background:#f59e0b"></div>
+  <div class="abs" style="left:200px;top:220px;width:260px;height:200px;background:#2563eb;mix-blend-mode:hue"></div>
+  <div class="abs" style="left:400px;top:160px;width:260px;height:200px;background:#f59e0b"></div>
+  <div class="abs" style="left:536px;top:220px;width:260px;height:200px;background:#2563eb;mix-blend-mode:saturation"></div>
+  <div class="abs" style="left:736px;top:160px;width:260px;height:200px;background:#f59e0b"></div>
+  <div class="abs" style="left:872px;top:220px;width:260px;height:200px;background:#2563eb;mix-blend-mode:color"></div>
+  <div class="abs" style="left:64px;top:440px;width:260px;height:200px;background:#f59e0b"></div>
+  <div class="abs" style="left:200px;top:500px;width:260px;height:200px;background:#2563eb;mix-blend-mode:luminosity"></div>
+</section>
+</body></html>

@@ -1,0 +1,520 @@
+{
+  "slideSize": {
+    "cx": 12192000,
+    "cy": 6858000
+  },
+  "palette": {
+    "dk1": "#000000",
+    "lt1": "#FFFFFF",
+    "dk2": "#1F497D",
+    "lt2": "#EEECE1",
+    "accent1": "#4F81BD",
+    "accent2": "#C0504D",
+    "accent3": "#9BBB59",
+    "accent4": "#8064A2",
+    "accent5": "#4BACC6",
+    "accent6": "#F79646",
+    "hlink": "#0000FF",
+    "folHlink": "#800080"
+  },
+  "fonts": {
+    "major": {
+      "latin": "나눔고딕",
+      "ea": "나눔고딕"
+    },
+    "minor": {
+      "latin": "나눔고딕",
+      "ea": "나눔고딕"
+    }
+  },
+  "observed": {
+    "fonts": {
+      "title": {
+        "latin": "나눔고딕",
+        "ea": null
+      },
+      "body": {
+        "latin": "나눔고딕",
+        "ea": null
+      }
+    },
+    "colours": {
+      "title": "#EA002C",
+      "body": "#212A35",
+      "accent": "#E21737",
+      "tableHeader": "#FFFFFF",
+      "tableHeaderText": "#212A35"
+    },
+    "layoutStyles": {
+      "Cover": {
+        "title": {
+          "x": 643229,
+          "y": 4574285,
+          "w": 7000000,
+          "h": 452120,
+          "align": "l",
+          "size": 28,
+          "bold": true,
+          "colour": "#EA002C",
+          "latin": "나눔고딕"
+        },
+        "subtitle": {
+          "x": 687730,
+          "y": 5111241,
+          "w": 2000000,
+          "h": 239395,
+          "align": "l",
+          "size": 14,
+          "bold": false,
+          "colour": "#252525",
+          "latin": "나눔고딕"
+        }
+      },
+      "Contents": {
+        "title": {
+          "x": 670000,
+          "y": 1900000,
+          "w": 6000000,
+          "h": 800000,
+          "align": "l",
+          "size": 54,
+          "bold": false,
+          "colour": "#EA002C",
+          "latin": "나눔고딕"
+        },
+        "subtitle": {
+          "x": 4300000,
+          "y": 2100000,
+          "w": 3500000,
+          "h": 175895,
+          "align": "l",
+          "size": 9.5,
+          "bold": true,
+          "colour": "#303336",
+          "latin": "나눔고딕"
+        },
+        "body": {
+          "x": 847445,
+          "y": 3300000,
+          "w": 4500000,
+          "h": 2000000,
+          "align": "l",
+          "size": 12,
+          "bold": false,
+          "colour": "#252525",
+          "latin": "나눔고딕"
+        }
+      },
+      "Chapter": {
+        "title": {
+          "x": 4391025,
+          "y": 3115513,
+          "w": 3411220,
+          "h": 840105,
+          "align": "ctr",
+          "size": 53.5,
+          "bold": true,
+          "colour": "#EA002C",
+          "latin": "나눔고딕"
+        },
+        "subtitle": {
+          "x": 4944236,
+          "y": 1620810,
+          "w": 2281555,
+          "h": 483234,
+          "align": "ctr",
+          "size": 9.5,
+          "bold": true,
+          "colour": "#FF8566",
+          "latin": "나눔고딕"
+        },
+        "body": {
+          "x": 4944236,
+          "y": 4068826,
+          "w": 2281555,
+          "h": 1000000,
+          "align": "l",
+          "size": 14,
+          "bold": false,
+          "colour": "#212A35",
+          "latin": "나눔고딕"
+        }
+      },
+      "Content": {
+        "title": {
+          "x": 593547,
+          "y": 532003,
+          "w": 11004905,
+          "h": 360680,
+          "align": "l",
+          "size": 22,
+          "bold": true,
+          "colour": "#353430",
+          "latin": "나눔고딕"
+        },
+        "body": {
+          "x": 593547,
+          "y": 1400000,
+          "w": 11004905,
+          "h": 4700000,
+          "align": "l",
+          "size": 14,
+          "bold": false,
+          "colour": "#252525",
+          "latin": "나눔고딕"
+        }
+      },
+      "Content with Lead": {
+        "title": {
+          "x": 593547,
+          "y": 532003,
+          "w": 11004905,
+          "h": 360680,
+          "align": "l",
+          "size": 22,
+          "bold": true,
+          "colour": "#353430",
+          "latin": "나눔고딕"
+        },
+        "subtitle": {
+          "x": 871524,
+          "y": 1168399,
+          "w": 9693275,
+          "h": 269240,
+          "align": "l",
+          "size": 16,
+          "bold": false,
+          "colour": "#1B1B27",
+          "latin": "나눔고딕"
+        },
+        "body": {
+          "x": 593547,
+          "y": 1800000,
+          "w": 11004905,
+          "h": 4300000,
+          "align": "l",
+          "size": 14,
+          "bold": false,
+          "colour": "#252525",
+          "latin": "나눔고딕"
+        }
+      },
+      "Closing": {
+        "subtitle": {
+          "x": 720039,
+          "y": 647446,
+          "w": 4000000,
+          "h": 175895,
+          "align": "l",
+          "size": 9.5,
+          "bold": true,
+          "colour": "#303336",
+          "latin": "나눔고딕"
+        }
+      }
+    }
+  },
+  "layouts": [
+    {
+      "name": "Cover",
+      "kind": "title",
+      "background": {
+        "type": "image",
+        "value": "image4-c7174b0e.jpg"
+      },
+      "decorations": [],
+      "placeholders": [
+        {
+          "type": "title",
+          "idx": 0,
+          "x": 643229,
+          "y": 4574285,
+          "w": 7000000,
+          "h": 452120,
+          "textStyle": {
+            "color": "#EA002C",
+            "bold": true,
+            "align": "l",
+            "size": 28
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contents",
+      "kind": "contents",
+      "background": {
+        "type": "color",
+        "value": "#F6F4EE"
+      },
+      "decorations": [
+        {
+          "kind": "pic",
+          "x": 0,
+          "y": 0,
+          "w": 12192000,
+          "h": 6858000,
+          "fill": null,
+          "text": null,
+          "asset": "image2-5eaec1c6.png"
+        },
+        {
+          "kind": "pic",
+          "x": 10087356,
+          "y": 6210300,
+          "w": 1499616,
+          "h": 336804,
+          "fill": null,
+          "text": null,
+          "asset": "image3-3b1988fb.png"
+        }
+      ],
+      "placeholders": [
+        {
+          "type": "title",
+          "idx": 0,
+          "x": 670000,
+          "y": 1900000,
+          "w": 6000000,
+          "h": 800000,
+          "textStyle": {
+            "color": "#EA002C",
+            "bold": false,
+            "align": "l",
+            "size": 54
+          }
+        },
+        {
+          "type": "body",
+          "idx": 1,
+          "x": 847445,
+          "y": 3300000,
+          "w": 4500000,
+          "h": 2000000,
+          "textStyle": {
+            "color": "#252525",
+            "bold": false,
+            "align": "l",
+            "size": 12
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chapter",
+      "kind": "section",
+      "background": {
+        "type": "color",
+        "value": "#FFFFFF"
+      },
+      "decorations": [
+        {
+          "kind": "pic",
+          "x": 10087356,
+          "y": 6210300,
+          "w": 1499616,
+          "h": 336804,
+          "fill": null,
+          "text": null,
+          "asset": "image3-3b1988fb.png"
+        }
+      ],
+      "placeholders": [
+        {
+          "type": "title",
+          "idx": 0,
+          "x": 4391025,
+          "y": 3115513,
+          "w": 3411220,
+          "h": 840105,
+          "textStyle": {
+            "color": "#EA002C",
+            "bold": true,
+            "align": "ctr",
+            "size": 53.5
+          }
+        },
+        {
+          "type": "body",
+          "idx": 1,
+          "x": 4944236,
+          "y": 4068826,
+          "w": 2281555,
+          "h": 1000000,
+          "textStyle": {
+            "color": "#212A35",
+            "bold": false,
+            "align": "l",
+            "size": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "kind": "content",
+      "background": {
+        "type": "color",
+        "value": "#FFFFFF"
+      },
+      "decorations": [
+        {
+          "kind": "shape",
+          "x": 0,
+          "y": 1053083,
+          "w": 12192000,
+          "h": 5803900,
+          "fill": "#F6F4EE",
+          "text": null,
+          "asset": null
+        },
+        {
+          "kind": "pic",
+          "x": 10087356,
+          "y": 6210300,
+          "w": 1499616,
+          "h": 336804,
+          "fill": null,
+          "text": null,
+          "asset": "image3-3b1988fb.png"
+        }
+      ],
+      "placeholders": [
+        {
+          "type": "title",
+          "idx": 0,
+          "x": 593547,
+          "y": 532003,
+          "w": 11004905,
+          "h": 360680,
+          "textStyle": {
+            "color": "#353430",
+            "bold": true,
+            "align": "l",
+            "size": 22
+          }
+        },
+        {
+          "type": "body",
+          "idx": 1,
+          "x": 593547,
+          "y": 1400000,
+          "w": 11004905,
+          "h": 4700000,
+          "textStyle": {
+            "color": "#252525",
+            "bold": false,
+            "align": "l",
+            "size": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "Content with Lead",
+      "kind": "lead",
+      "background": {
+        "type": "color",
+        "value": "#FFFFFF"
+      },
+      "decorations": [
+        {
+          "kind": "shape",
+          "x": 0,
+          "y": 1053083,
+          "w": 12192000,
+          "h": 5803900,
+          "fill": "#F6F4EE",
+          "text": null,
+          "asset": null
+        },
+        {
+          "kind": "pic",
+          "x": 0,
+          "y": 1124711,
+          "w": 12190476,
+          "h": 432815,
+          "fill": null,
+          "text": null,
+          "asset": "image34-a35650fd.png"
+        },
+        {
+          "kind": "pic",
+          "x": 10087356,
+          "y": 6210300,
+          "w": 1499616,
+          "h": 336804,
+          "fill": null,
+          "text": null,
+          "asset": "image3-3b1988fb.png"
+        }
+      ],
+      "placeholders": [
+        {
+          "type": "title",
+          "idx": 0,
+          "x": 593547,
+          "y": 532003,
+          "w": 11004905,
+          "h": 360680,
+          "textStyle": {
+            "color": "#353430",
+            "bold": true,
+            "align": "l",
+            "size": 22
+          }
+        },
+        {
+          "type": "body",
+          "idx": 1,
+          "x": 593547,
+          "y": 1800000,
+          "w": 11004905,
+          "h": 4300000,
+          "textStyle": {
+            "color": "#252525",
+            "bold": false,
+            "align": "l",
+            "size": 14
+          }
+        }
+      ]
+    },
+    {
+      "name": "Closing",
+      "kind": "closing",
+      "background": {
+        "type": "image",
+        "value": "image94.jpg"
+      },
+      "decorations": [],
+      "placeholders": []
+    }
+  ],
+  "assets": [
+    {
+      "file": "image2-5eaec1c6.png",
+      "source": "skhynix_ppt_templet.pptx!ppt/media/image2.png"
+    },
+    {
+      "file": "image3-3b1988fb.png",
+      "source": "skhynix_ppt_templet.pptx!ppt/media/image3.png"
+    },
+    {
+      "file": "image34-a35650fd.png",
+      "source": "skhynix_ppt_templet.pptx!ppt/media/image34.png"
+    },
+    {
+      "file": "image4-c7174b0e.jpg",
+      "source": "skhynix_ppt_templet.pptx!ppt/media/image4.jpg"
+    },
+    {
+      "file": "image94.jpg",
+      "source": "skhynix_ppt_templet.pptx!ppt/media/image94.jpg"
+    }
+  ],
+  "conflicts": [],
+  "warnings": [
+    "hand-curated: 6 layouts chosen from the sample slides"
+  ]
+}

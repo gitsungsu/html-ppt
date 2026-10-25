@@ -1,0 +1,8 @@
+{
+  "name": "ppt-style-html-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright": "1.64.0"
+  }
+}

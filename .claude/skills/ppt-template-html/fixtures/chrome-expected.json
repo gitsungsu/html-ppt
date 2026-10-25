@@ -1,0 +1,1 @@
+[{"slide":1,"kind":"content","rule":"contrast","result":"fail"}, {"slide":2,"kind":"content","rule":"contrast","result":"human-check"}, {"slide":3,"kind":"chrome","rule":"contrast","result":"reported"}, {"slide":3,"kind":"content","rule":"any","result":"pass"}]

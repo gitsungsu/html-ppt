@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Generated output
+out/
+
+# Python bytecode
+__pycache__/
+settings.local.json
+# Tool state
+.omc/
+.playwright-mcp/

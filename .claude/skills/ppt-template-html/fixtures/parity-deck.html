@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>parity fixture</title>
+<style>
+  html { overflow-x: hidden; }
+  body { margin: 0; font-family: Arial, sans-serif; }
+  section.slide { position: relative; display: block; width: 1280px; height: 720px; margin: 0; background: #ffffff; }
+  .t { position: absolute; margin: 0; font-size: 28px; line-height: 1.3; color: #111111; }
+</style>
+</head>
+<body>
+
+<!-- 1: clean -->
+<section class="slide">
+  <h1 class="t" style="left:100px;top:80px;width:1000px;font-size:44px">Clean slide title</h1>
+  <p class="t" style="left:100px;top:200px;width:1000px">Body text with good contrast inside the safe area</p>
+</section>
+
+<!-- 2: contrast failure (light grey text on white) -->
+<section class="slide">
+  <p class="t" style="left:100px;top:300px;width:1000px;color:#bbbbbb">Light grey text on a white slide</p>
+</section>
+
+<!-- 3: safe-area failure (text starts 10px from the left edge) -->
+<section class="slide">
+  <p class="t" style="left:10px;top:300px;width:700px">Text inside the left safe margin</p>
+</section>
+
+<!-- 4: overlapping text boxes (both content) -->
+<section class="slide">
+  <p class="t" style="left:100px;top:300px;width:700px">Overlap text one</p>
+  <p class="t" style="left:100px;top:310px;width:700px">Overlap text two</p>
+</section>
+
+<!-- 5: 14px text -->
+<section class="slide">
+  <p class="t" style="left:100px;top:300px;width:700px;font-size:14px">Tiny fourteen pixel text</p>
+</section>
+
+<!-- 6: oklch text colour (text colour only) -->
+<section class="slide">
+  <p class="t" style="left:100px;top:300px;width:900px;color:oklch(0.3 0 0)">Text coloured with oklch</p>
+</section>
+
+<!-- 7: text runs past the right edge of the slide (overflow, plus safe-area) -->
+<section class="slide">
+  <p class="t" style="left:1000px;top:300px;white-space:nowrap">Text that runs past the right edge of the slide</p>
+</section>
+
+<!-- 8: clipped text (overflow hidden box shorter than its text) -->
+<section class="slide">
+  <div class="t" style="left:100px;top:300px;width:300px;height:40px;overflow:hidden">This sentence is longer than its box and wraps beyond the fixed height</div>
+</section>
+
+<!-- 9: missing picture, placed away from the text -->
+<section class="slide">
+  <img src="images/does-not-exist.png" alt="" style="position:absolute;left:900px;top:100px;width:200px;height:120px">
+  <p class="t" style="left:100px;top:300px;width:700px">Slide with a missing picture</p>
+</section>
+
+<!-- 10: 960x720 canvas (not 16:9) -->
+<section class="slide" style="width:960px">
+  <p class="t" style="left:100px;top:300px;width:700px">Four by three canvas</p>
+</section>
+
+</body>
+</html>

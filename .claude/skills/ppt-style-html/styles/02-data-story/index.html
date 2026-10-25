@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 상반기 제품 로드맵 · 스타일 2 시작본</title>
+<!-- style-profile
+purpose: report
+audience: executives, live talk
+primary: 2 Data Story (HTML + Tailwind + ECharts SVG, html-ppt slide format)
+blend: none
+rule: user choice (starter sample: one chart with static labels)
+-->
+<style>
+  @font-face { font-family: "Pretendard"; font-weight: 400; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2"); }
+  @font-face { font-family: "Pretendard"; font-weight: 600; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2") format("woff2"); }
+  @font-face { font-family: "Pretendard"; font-weight: 700; src: url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2"); }
+  body { margin: 0; padding: 24px 0; background: #e5e7eb; font-family: "Pretendard", "Malgun Gothic", sans-serif; }
+  /* Each slide is exactly 1280x720 px (16:9). The PPT converter reads every section.slide, so all slides stay in the page. */
+  section.slide { position: relative; box-sizing: border-box; width: 1280px; height: 720px; margin: 0 auto 24px; padding: 64px 96px; overflow: hidden; background: #ffffff; color: #111111; }
+  section.slide .notes { display: none; }
+  table { border-collapse: collapse; width: 100%; font-size: 24px; }
+  th { background: #f1f5f9; text-align: left; font-weight: 600; padding: 16px 20px; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 16px 20px; border-bottom: 1px solid #cbd5e1; }
+  /* Presenter: ?present shows one slide at a time (arrows, Home, End), scaled to fit the window. The default page is stacked.
+     Hidden slides keep their layout (visibility, not display), so charts and diagrams are drawn at full size. */
+  body.present { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  body.present section.slide { position: fixed; left: 50%; top: 50%; margin: 0; visibility: hidden; transform: translate(-50%, -50%) scale(var(--fit, 1)); }
+  body.present section.slide.current { visibility: visible; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11/dist/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body>
+
+<section class="slide flex flex-col justify-center gap-6">
+  <p class="text-xl font-semibold tracking-[0.2em] text-[#0369a1]">PRODUCT ROADMAP</p>
+  <h1 class="text-7xl font-bold leading-tight">2026 상반기 제품 로드맵</h1>
+  <p class="text-2xl text-[#555555]">발표 시작본 · 샘플 콘텐츠</p>
+  <aside class="notes">발표 인사와 주제 소개.</aside>
+</section>
+
+<section class="slide flex flex-col gap-10">
+  <h2 class="text-5xl font-bold">신규 사용자 전환율 18% 개선</h2>
+  <div class="grid grid-cols-3 gap-8">
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <p class="text-7xl font-bold text-[#0369a1]">+18%</p>
+      <p class="mt-4 text-2xl font-semibold">신규 사용자 전환율</p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">온보딩 4단계를 3단계로 줄였습니다.</p>
+    </div>
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <p class="text-7xl font-bold text-[#0369a1]">+24%p</p>
+      <p class="mt-4 text-2xl font-semibold">체크리스트 완료율</p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">첫 주 안에 핵심 기능을 써 본 사용자가 늘었습니다.</p>
+    </div>
+    <div class="rounded-2xl bg-[#f1f5f9] p-8">
+      <p class="text-7xl font-bold text-[#0369a1]">2.1배</p>
+      <p class="mt-4 text-2xl font-semibold">무료 체험 → 유료 전환</p>
+      <p class="mt-3 text-2xl break-keep text-[#555555]">체험 기간 중 안내 메일을 개선했습니다.</p>
+    </div>
+  </div>
+  <aside class="notes">세 가지 지표가 전환율 개선을 뒷받침합니다.</aside>
+</section>
+
+<section class="slide flex flex-col gap-8">
+  <div>
+    <h2 class="text-5xl font-bold">분기별 활성 사용자</h2>
+    <p class="mt-2 text-xl text-[#555555]">단위: 백만 명 · 막대 위에 값을 표시합니다</p>
+  </div>
+  <div id="chart" class="shrink-0" style="width: 1088px; height: 400px;"></div>
+  <aside class="notes">Q2에 1.5백만 명으로 상반기 가장 높았습니다.</aside>
+</section>
+
+<section class="slide flex flex-col gap-10">
+  <h2 class="text-5xl font-bold">진행 단계</h2>
+  <table>
+    <tr><th>단계</th><th>기간</th><th>상태</th></tr>
+    <tr><td>리서치</td><td>1월 – 2월</td><td>완료</td></tr>
+    <tr><td>설계</td><td>3월</td><td>완료</td></tr>
+    <tr><td>개발</td><td>4월 – 5월</td><td>완료</td></tr>
+    <tr><td>출시</td><td>6월</td><td>완료</td></tr>
+  </table>
+  <aside class="notes">네 단계를 모두 마쳤습니다.</aside>
+</section>
+
+<section class="slide flex flex-col justify-center gap-10">
+  <h2 class="text-5xl font-bold">다음 분기 목표</h2>
+  <ul class="flex flex-col gap-6 text-3xl">
+    <li>✓ 온보딩 완료율 70% 달성</li>
+    <li>✓ 유료 전환 경로 A/B 테스트</li>
+    <li>✓ 분기 리뷰 자료 자동 생성</li>
+  </ul>
+  <p class="text-2xl text-[#555555]">질문과 의견을 받습니다.</p>
+  <aside class="notes">질문을 받고 마무리합니다.</aside>
+</section>
+
+<script>
+  // ECharts draws the chart as SVG, so the figure is vector shapes and text in the page (and in the PPT).
+  echarts.init(document.getElementById('chart'), null, { renderer: 'svg' }).setOption({
+    animation: false,
+    textStyle: { fontFamily: 'Pretendard, "Malgun Gothic", sans-serif' },
+    grid: { left: 40, right: 40, top: 48, bottom: 56 },
+    xAxis: { type: 'category', data: ['Q1', 'Q2'], axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { show: false }, axisLabel: { fontSize: 22, color: '#555555' } },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'bar',
+      data: [1.2, 1.5],
+      barWidth: '52%',
+      itemStyle: { color: '#0369a1' },
+      label: { show: true, position: 'top', fontSize: 22, color: '#111111', formatter: '{c}' },
+    }],
+  });
+
+  // Presenter (optional): ?present shows one slide at a time. The converter reads the default stacked page.
+  (function () {
+    if (!new URLSearchParams(location.search).has('present')) return;
+    const slides = [...document.querySelectorAll('section.slide')];
+    let i = 0;
+    const show = (n) => {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, k) => s.classList.toggle('current', k === i));
+    };
+    document.body.classList.add('present');
+    const fit = () => document.documentElement.style.setProperty('--fit', Math.min(innerWidth / 1280, innerHeight / 720));
+    fit();
+    addEventListener('resize', fit);
+    show(0);
+    addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) show(i + 1);
+      else if (['ArrowLeft', 'PageUp'].includes(e.key)) show(i - 1);
+      else if (e.key === 'Home') show(0);
+      else if (e.key === 'End') show(slides.length - 1);
+    });
+  })();
+</script>
+</body>
+</html>

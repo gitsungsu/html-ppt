@@ -1,0 +1,98 @@
+{
+  "slides10": [
+    {
+      "slide": 0,
+      "rule": "console"
+    },
+    {
+      "slide": 0,
+      "rule": "request-failed"
+    },
+    {
+      "slide": 2,
+      "rule": "contrast"
+    },
+    {
+      "slide": 3,
+      "rule": "safe-area"
+    },
+    {
+      "slide": 4,
+      "rule": "overlap"
+    },
+    {
+      "slide": 5,
+      "rule": "text-size"
+    },
+    {
+      "slide": 6,
+      "rule": "colour"
+    },
+    {
+      "slide": 7,
+      "rule": "overflow"
+    },
+    {
+      "slide": 7,
+      "rule": "safe-area"
+    },
+    {
+      "slide": 8,
+      "rule": "clipped"
+    },
+    {
+      "slide": 10,
+      "rule": "canvas"
+    }
+  ],
+  "slides9": [
+    {
+      "slide": 0,
+      "rule": "console"
+    },
+    {
+      "slide": 0,
+      "rule": "request-failed"
+    },
+    {
+      "slide": 0,
+      "rule": "slide-count"
+    },
+    {
+      "slide": 2,
+      "rule": "contrast"
+    },
+    {
+      "slide": 3,
+      "rule": "safe-area"
+    },
+    {
+      "slide": 4,
+      "rule": "overlap"
+    },
+    {
+      "slide": 5,
+      "rule": "text-size"
+    },
+    {
+      "slide": 6,
+      "rule": "colour"
+    },
+    {
+      "slide": 7,
+      "rule": "overflow"
+    },
+    {
+      "slide": 7,
+      "rule": "safe-area"
+    },
+    {
+      "slide": 8,
+      "rule": "clipped"
+    },
+    {
+      "slide": 10,
+      "rule": "canvas"
+    }
+  ]
+}

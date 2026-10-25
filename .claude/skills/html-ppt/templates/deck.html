@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Deck Title</title>
+<style>
+  :root { --bg:#0f172a; --fg:#f8fafc; --muted:#94a3b8; --accent:#38bdf8; --card:#1e293b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background:#334155; font-family:"Pretendard","Malgun Gothic",Arial,sans-serif; padding:24px 0; }
+  /* Each slide is exactly 1280x720 px (16:9). Do not change this size. */
+  section.slide { position:relative; width:1280px; height:720px; margin:0 auto 24px; padding:72px 88px;
+    background:var(--bg); color:var(--fg); overflow:hidden; box-shadow:0 8px 30px #0006; }
+  h1 { font-size:60px; font-weight:800; line-height:1.15; }
+  h2 { font-size:40px; font-weight:700; line-height:1.25; margin-bottom:32px; }
+  p, li { font-size:24px; line-height:1.5; }
+  ul { list-style:none; }
+  li { margin-bottom:12px; }
+  .muted { color:var(--muted); }
+  .accent { color:var(--accent); }
+  .row { display:flex; gap:32px; }
+  .card { flex:1; background:var(--card); border:2px solid #334155; border-radius:16px; padding:28px; }
+  .card h3 { font-size:28px; margin-bottom:12px; color:var(--accent); }
+  .card p { font-size:20px; }
+  table { border-collapse:collapse; width:100%; font-size:22px; }
+  th { background:var(--card); text-align:left; padding:14px 18px; }
+  td { padding:14px 18px; border-bottom:1px solid #334155; }
+  .notes { display:none; }
+</style>
+</head>
+<body>
+
+<section class="slide" style="background:linear-gradient(135deg,#0f172a,#1e3a5f)">
+  <p class="accent" style="margin-top:180px;font-size:22px;letter-spacing:4px">PRESENTATION</p>
+  <h1 style="margin-top:16px">발표 제목을 입력하세요</h1>
+  <p class="muted" style="margin-top:24px">부제목 · 발표자 · 2026.10</p>
+  <aside class="notes">발표자 노트: 인사 및 주제 소개.</aside>
+</section>
+
+<section class="slide">
+  <h2>핵심 메시지 <span class="accent">3가지</span></h2>
+  <ul>
+    <li>첫 번째 요점을 한 문장으로</li>
+    <li>두 번째 요점 — <b>강조</b>할 단어는 굵게</li>
+    <li>세 번째 요점과 근거</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>비교</h2>
+  <div class="row">
+    <div class="card"><h3>옵션 A</h3><p>설명 문장이 들어갑니다. 카드는 네이티브 도형 + 텍스트로 변환됩니다.</p></div>
+    <div class="card"><h3>옵션 B</h3><p>다른 설명 문장이 들어갑니다.</p></div>
+    <div class="card"><h3>옵션 C</h3><p>세 번째 설명 문장.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>데이터</h2>
+  <table>
+    <tr><th>항목</th><th>2025</th><th>2026</th></tr>
+    <tr><td>매출</td><td>120</td><td>180</td></tr>
+    <tr><td>이익</td><td>20</td><td>45</td></tr>
+  </table>
+  <!-- svg/canvas/img are inserted as pictures; use data-ppt="raster" on any element to force this -->
+  <svg width="400" height="120" viewBox="0 0 400 120" style="margin-top:32px">
+    <rect x="10" y="60" width="60" height="50" fill="#38bdf8"/><rect x="90" y="30" width="60" height="80" fill="#38bdf8"/>
+    <rect x="170" y="10" width="60" height="100" fill="#38bdf8"/>
+  </svg>
+</section>
+
+</body>
+</html>

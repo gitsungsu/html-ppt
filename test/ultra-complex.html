@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ultra Complex — 단일 HTML 복합 데크</title>
+<style>
+:root {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;        /* chart surface (dark) */
+  --surface-2: #242422;
+  --ink: #f0efec;            /* primary ink */
+  --ink-2: #c3c2b7;          /* secondary ink */
+  --ink-3: #898781;          /* muted ink */
+  --grid: #2c2c2a;           /* hairline gridlines */
+  --axis: #383835;           /* baseline */
+  --track: #184f95;          /* meter track: recessive step of the blue ramp */
+  --border: rgba(255, 255, 255, 0.10);
+  --s1: #3987e5;             /* categorical slot 1 (blue)   */
+  --s2: #d95926;             /* categorical slot 2 (orange) */
+  --s3: #199e70;             /* categorical slot 3 (aqua)   */
+  --s4: #c98500;             /* categorical slot 4 (yellow) */
+  --good: #0ca30c;           /* status (fixed) */
+  --critical: #d03b3b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#161615;font-family:"Malgun Gothic","맑은 고딕",system-ui,"Segoe UI",sans-serif;padding:24px 0;color:var(--ink)}
+/* Each slide is exactly 1280x720 px (16:9). Do not change this size. */
+section.slide{position:relative;width:1280px;height:720px;margin:0 auto 24px;padding:56px 80px;background:var(--page);color:var(--ink);overflow:hidden;box-shadow:0 8px 30px #0006;display:flex;flex-direction:column;gap:24px}
+h1{font-size:56px;font-weight:800;line-height:1.2;letter-spacing:-.5px}
+h2{font-size:40px;font-weight:700;line-height:1.2}
+h3{font-size:26px;font-weight:700;line-height:1.3}
+p,li{font-size:20px;line-height:1.55}
+ol,ul{list-style:none}
+.notes{display:none}
+
+/* Shared */
+.eyebrow{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-3)}
+.sub{font-size:18px;color:var(--ink-2)}
+.muted{color:var(--ink-3)}
+.good{color:var(--good)}
+.bad{color:var(--critical)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.head h2{margin-top:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px}
+.split{display:grid;grid-template-columns:1fr 420px;gap:28px;flex:1;min-height:0}
+.note{margin-top:14px;font-size:15px;line-height:1.6;color:var(--ink-3);word-break:keep-all}
+
+/* 1. Cover */
+.slide.cover{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;background:radial-gradient(circle at 82% 30%,rgba(57,135,229,.26),transparent 46%),radial-gradient(circle at 8% 96%,rgba(217,89,38,.16),transparent 42%),var(--page)}
+.cover-text{display:flex;flex-direction:column;gap:22px;max-width:640px}
+.lead{font-size:21px;line-height:1.6;color:var(--ink-2)}
+.grad{background:linear-gradient(90deg,var(--s1),var(--s3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{padding:8px 16px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:15px;color:var(--ink-2)}
+.orbit{flex:none}
+
+/* 2. KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi-label{font-size:17px;color:var(--ink-2)}
+.kpi-value{font-size:50px;font-weight:800;line-height:1.1}
+.delta{font-size:17px;font-weight:700}
+.delta span{font-weight:400;color:var(--ink-3)}
+.spark{margin-top:auto;padding-top:10px}
+.spark svg{display:block;width:100%;height:56px}
+.bottom{display:grid;grid-template-columns:440px 1fr;gap:20px;flex:1}
+.goal{display:flex;align-items:center;gap:28px}
+.donut{flex:none;width:150px;height:150px}
+.donut svg{display:block;width:100%;height:100%}
+.goal-value{font-size:44px;font-weight:800;line-height:1.1}
+.meters{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.meter{display:grid;grid-template-columns:90px 1fr 64px;align-items:center;gap:16px;font-size:18px;color:var(--ink-2)}
+.track{height:10px;border-radius:5px;background:var(--track);overflow:hidden}
+.track i{display:block;height:100%;background:var(--s1);border-radius:5px}
+.meter b{font-weight:700;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+
+/* 3 & 4. Charts, legends, tooltips, tables */
+.chart-card{display:flex;flex-direction:column;gap:14px}
+.legend{display:flex;align-items:center;gap:22px;font-size:17px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend .unit{margin-left:auto;font-size:15px;color:var(--ink-3)}
+.sw-1,.sw-2,.sw-3,.sw-4{display:inline-block;width:12px;height:12px;border-radius:3px}
+.sw-1{background:var(--s1)}
+.sw-2{background:var(--s2)}
+.sw-3{background:var(--s3)}
+.sw-4{background:var(--s4)}
+.chart-wrap{position:relative}
+.chart-wrap svg{display:block;width:100%;height:auto}
+.chart-wrap text{font-variant-numeric:tabular-nums}
+.tip{position:absolute;pointer-events:none;transform:translate(-50%,-125%);padding:8px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:15px;white-space:nowrap;opacity:0;transition:opacity .12s}
+.tip.show{opacity:1}
+.seg{display:flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.seg button{font:inherit;font-size:16px;color:var(--ink-2);background:transparent;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--surface-2);color:var(--ink);font-weight:700}
+table.data{width:100%;border-collapse:collapse;font-size:17px}
+table.data th{font-size:14px;font-weight:600;color:var(--ink-3);text-align:right;padding:8px;border-bottom:1px solid var(--axis)}
+table.data td{padding:12px 8px;border-bottom:1px solid var(--grid);text-align:right;font-variant-numeric:tabular-nums}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data tr.total td{font-weight:700;border-top:1px solid var(--axis);border-bottom:0}
+table.data small{font-size:14px;margin-left:6px}
+table.data i{display:inline-block;margin-right:10px;vertical-align:middle}
+.table-card{padding:12px 24px}
+.table-card table.data td{padding:6px 8px}
+
+/* 5. Roadmap */
+.stamp{position:absolute;right:88px;top:70px;transform:rotate(-8deg);padding:8px 20px;border:3px solid var(--good);border-radius:10px;font-size:24px;font-weight:800;letter-spacing:2px;color:var(--good)}
+.timeline{position:relative;margin-top:40px}
+.rail{position:absolute;left:10%;right:10%;top:16px;height:2px;background:var(--axis)}
+.steps{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:20px;text-align:center}
+.node{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin:0 auto 16px;border:2px solid var(--axis);border-radius:50%;background:var(--page);font-size:15px;font-weight:700;color:var(--ink-2)}
+.step.done .node{border-color:var(--good);color:var(--good)}
+.step.now .node{border-color:var(--s1);color:var(--s1)}
+.step .when{font-size:15px;color:var(--ink-3)}
+.step h3{margin:4px 0 8px}
+.step p:last-child{font-size:16px;color:var(--ink-2)}
+.pipeline{margin-top:auto;display:flex;flex-direction:column;gap:16px}
+.flow{display:flex;align-items:center;gap:14px}
+.flow span{flex:1;padding:14px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2);font-size:18px;font-weight:600;text-align:center}
+.flow b{font-size:22px;color:var(--ink-3)}
+
+/* 6. Code & checklist */
+.code-split{display:grid;grid-template-columns:600px 1fr;gap:32px;flex:1}
+.code-win{display:flex;flex-direction:column;overflow:hidden;background:#111110;border:1px solid var(--border);border-radius:16px}
+.win-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+.win-bar i{width:12px;height:12px;border-radius:50%;background:var(--axis)}
+.win-bar span{margin-left:10px;font-size:14px;color:var(--ink-3)}
+.code-win pre{padding:22px 24px;font-family:Consolas,"Courier New",monospace;font-size:16px;line-height:1.75;color:var(--ink-2);white-space:pre}
+.code-win .c{color:var(--ink-3);font-style:italic}
+.code-win .k{color:var(--s1)}
+.code-win .s{color:var(--s3)}
+.code-win .n{color:var(--s4)}
+.side{display:flex;flex-direction:column;gap:18px}
+.check-list li{display:flex;align-items:center;gap:16px;padding:6px 0;border-bottom:1px solid var(--grid);line-height:1.35}
+.check-list b{display:block;font-size:18px;font-weight:700;line-height:1.3}
+.check-list small{font-size:15px;color:var(--ink-2);line-height:1.4}
+.tick{display:flex;flex:none;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--border);border-radius:50%;background:var(--surface-2);font-size:16px;font-weight:800;color:var(--ink)}
+.cols{column-count:2;column-gap:32px;font-size:15px;line-height:1.6;color:var(--ink-2)}
+
+/* 7. Canvas */
+.canvas-split{grid-template-columns:700px 1fr}
+#flow{display:block;width:700px;height:440px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}
+.stats{display:flex;flex-direction:column;gap:24px}
+.stat-value{font-size:44px;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* 8. Summary */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.trio h3{margin-bottom:12px}
+.trio li{padding:10px 0;border-bottom:1px solid var(--grid);font-size:18px;color:var(--ink-2)}
+.closing{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.grad-big{font-size:56px;font-weight:800;background:linear-gradient(90deg,var(--s1),var(--s2) 60%,var(--s4));-webkit-background-clip:text;background-clip:text;color:transparent}
+</style>
+</head>
+<body>
+
+<!-- 1. Cover -->
+<section class="slide cover">
+  <div class="cover-text">
+    <p class="eyebrow">Single HTML · Slide showcase</p>
+    <h1>한 개의 HTML로 만든<br><span class="grad">복합 프레젠테이션</span></h1>
+    <p class="lead">KPI 카드, 라인·스택 차트, 표, 타임라인, 코드 패널, 캔버스 애니메이션을 외부 라이브러리 없이 한 파일에 담았습니다.</p>
+    <div class="chips">
+      <span class="chip">1280 × 720 · 16:9</span>
+      <span class="chip">8 슬라이드</span>
+      <span class="chip">샘플 데이터 · 데모용</span>
+    </div>
+  </div>
+  <svg class="orbit" viewBox="0 0 420 420" width="420" height="420" role="img" aria-label="궤도 일러스트">
+    <circle cx="210" cy="210" r="200" fill="none" stroke="#2c2c2a"/>
+    <circle cx="210" cy="210" r="160" fill="none" stroke="#2c2c2a"/>
+    <circle cx="210" cy="210" r="110" fill="none" stroke="#2c2c2a"/>
+    <circle cx="210" cy="210" r="60" fill="rgba(57,135,229,.18)" stroke="#3987e5" stroke-width="2"/>
+    <text x="210" y="218" text-anchor="middle" font-size="24" font-weight="700" fill="#f0efec">HTML</text>
+    <circle cx="383" cy="110" r="10" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+    <circle cx="320" cy="210" r="10" fill="#d95926" stroke="#1a1a19" stroke-width="2"/>
+    <circle cx="210" cy="50" r="10" fill="#199e70" stroke="#1a1a19" stroke-width="2"/>
+    <circle cx="97" cy="323" r="10" fill="#c98500" stroke="#1a1a19" stroke-width="2"/>
+  </svg>
+  <aside class="notes">표지: 단일 파일, 외부 의존성 없음.</aside>
+</section>
+
+<!-- 2. KPI dashboard -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Dashboard · 샘플 데이터</p>
+      <h2>핵심 지표 한눈에 보기</h2>
+    </div>
+    <p class="sub">전월 대비 변화 · 추세선은 최근 12개월</p>
+  </header>
+  <div class="kpis">
+    <article class="card kpi">
+      <p class="kpi-label">활성 사용자</p>
+      <p class="kpi-value">1.28M</p>
+      <p class="delta good">▲ 5.8% <span>전월 대비</span></p>
+      <div class="spark" data-spark="0.82,0.85,0.88,0.9,0.95,0.98,1.02,1.05,1.1,1.15,1.21,1.28"></div>
+    </article>
+    <article class="card kpi">
+      <p class="kpi-label">월 매출</p>
+      <p class="kpi-value">₩6.9억</p>
+      <p class="delta good">▲ 6.2% <span>전월 대비</span></p>
+      <div class="spark" data-spark="3.1,3.4,3.6,4.2,4.7,5.0,5.3,5.6,5.8,6.2,6.5,6.9"></div>
+    </article>
+    <article class="card kpi">
+      <p class="kpi-label">가용성</p>
+      <p class="kpi-value">99.92%</p>
+      <p class="delta bad">▼ 0.03%p <span>전월 대비</span></p>
+      <div class="spark" data-spark="99.97,99.98,99.96,99.97,99.96,99.95,99.96,99.94,99.95,99.95,99.95,99.92"></div>
+    </article>
+    <article class="card kpi">
+      <p class="kpi-label">평균 응답 시간</p>
+      <p class="kpi-value">182ms</p>
+      <p class="delta good">▼ 11ms <span>개선</span></p>
+      <div class="spark" data-spark="212,205,208,199,201,196,193,190,188,191,193,182"></div>
+    </article>
+  </div>
+  <div class="bottom">
+    <article class="card goal">
+      <div class="donut" data-ratio="0.72"></div>
+      <div>
+        <p class="kpi-label">이번 분기 목표 달성률</p>
+        <p class="goal-value">72%</p>
+        <p class="sub">목표 4.5억 · 실적 3.24억</p>
+      </div>
+    </article>
+    <article class="card meters">
+      <p class="kpi-label">부서별 예산 집행률</p>
+      <div class="meter"><span>마케팅</span><div class="track"><i style="width:64%"></i></div><b>64%</b></div>
+      <div class="meter"><span>개발</span><div class="track"><i style="width:88%"></i></div><b>88%</b></div>
+      <div class="meter"><span>운영</span><div class="track"><i style="width:51%"></i></div><b>51%</b></div>
+    </article>
+  </div>
+  <aside class="notes">KPI: 추세선은 SVG, 도넛과 미터는 SVG·CSS.</aside>
+</section>
+
+<!-- 3. Trend: line/area chart with range filter, hover layer, quarter table -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Trend · 2026 연간 (샘플)</p>
+      <h2>월별 추이 — 두 시리즈, 한 축</h2>
+    </div>
+    <div class="seg" role="group" aria-label="표시 기간">
+      <button type="button" data-range="6">6개월</button>
+      <button type="button" data-range="12">12개월</button>
+    </div>
+  </header>
+  <div class="split">
+    <article class="card chart-card">
+      <div class="legend">
+        <span><i class="sw-1"></i>매출</span>
+        <span><i class="sw-2"></i>비용</span>
+        <span class="unit">단위: 억 원</span>
+      </div>
+      <div class="chart-wrap" id="trend"><div class="tip"></div></div>
+    </article>
+    <article class="card">
+      <h3>분기 요약</h3>
+      <table class="data" id="quarters" aria-label="분기별 매출, 비용, 이익률"></table>
+      <p class="note">분기 값은 월별 데이터에서 계산합니다. 이익률 = (매출 − 비용) ÷ 매출.</p>
+    </article>
+  </div>
+  <aside class="notes">추이: 기간 토글과 호버 툴팁(십자선 포함)을 확인하세요.</aside>
+</section>
+
+<!-- 4. Composition: stacked bars, hover per segment, table twin -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Composition · 상반기 1–6월</p>
+      <h2>채널별 매출 기여 — 스택 막대</h2>
+    </div>
+    <p class="sub">월 매출 합계 3.1 → 5.0억 원</p>
+  </header>
+  <article class="card chart-card">
+    <div class="legend">
+      <span><i class="sw-1"></i>자사몰</span>
+      <span><i class="sw-2"></i>마켓</span>
+      <span><i class="sw-3"></i>파트너</span>
+      <span><i class="sw-4"></i>직접영업</span>
+      <span class="unit">단위: 억 원 · 막대 위 숫자는 월 합계</span>
+    </div>
+    <div class="chart-wrap" id="stacks"><div class="tip"></div></div>
+  </article>
+  <article class="card table-card">
+    <table class="data" id="channels" aria-label="채널별 월 매출 표"></table>
+  </article>
+  <aside class="notes">스택: 막대 위 숫자는 합계, 표는 같은 배열에서 생성됩니다.</aside>
+</section>
+
+<!-- 5. Roadmap & pipeline -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Roadmap</p>
+      <h2>구축 로드맵과 변환 파이프라인</h2>
+    </div>
+  </header>
+  <div class="stamp">1차 완료</div>
+  <div class="timeline">
+    <div class="rail"></div>
+    <ol class="steps">
+      <li class="step done"><span class="node">✓</span><p class="when">9월</p><h3>설계</h3><p>데이터 모델과 12열 그리드를 정의</p></li>
+      <li class="step done"><span class="node">✓</span><p class="when">9월 말</p><h3>초안</h3><p>1280×720 템플릿 기반 슬라이드 작성</p></li>
+      <li class="step now"><span class="node">3</span><p class="when">10월 중순 · 진행 중</p><h3>검증</h3><p>PNG 미리보기로 겹침과 넘침 점검</p></li>
+      <li class="step"><span class="node">4</span><p class="when">10월 말</p><h3>변환</h3><p>build_pptx로 네이티브 PPTX 출력</p></li>
+      <li class="step"><span class="node">5</span><p class="when">11월</p><h3>배포</h3><p>Windows PowerPoint에서 최종 확인</p></li>
+    </ol>
+  </div>
+  <article class="card pipeline">
+    <p class="eyebrow">Pipeline</p>
+    <div class="flow">
+      <span>HTML 시안</span><b>→</b>
+      <span>Playwright 렌더</span><b>→</b>
+      <span>DOM 레이아웃 추출</span><b>→</b>
+      <span>pptxgenjs 생성</span><b>→</b>
+      <span>PPTX</span>
+    </div>
+  </article>
+  <aside class="notes">로드맵: 현재 단계는 파란 테두리, 완료 단계는 초록 테두리.</aside>
+</section>
+
+<!-- 6. Code & checklist -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Workflow</p>
+      <h2>변환 명령과 체크리스트</h2>
+    </div>
+  </header>
+  <div class="code-split">
+    <article class="code-win">
+      <div class="win-bar"><i></i><i></i><i></i><span>terminal · html-ppt</span></div>
+      <pre><code><span class="c"># 1) Preview: one PNG per slide</span>
+<span class="k">node</span> .claude/skills/html-ppt/scripts/preview.mjs \
+  <span class="s">deck.html</span> preview/
+
+<span class="c"># 2) Export native PPTX with fixed line breaks</span>
+<span class="k">node</span> .claude/skills/html-ppt/scripts/build_pptx.mjs \
+  <span class="s">deck.html</span> out.pptx <span class="n">--hard-wrap</span>
+
+<span class="c"># 3) Remap fonts that are not installed</span>
+<span class="k">node</span> .claude/skills/html-ppt/scripts/build_pptx.mjs \
+  <span class="s">deck.html</span> out.pptx \
+  <span class="n">--font-map</span> <span class="s">"Pretendard=Malgun Gothic"</span></code></pre>
+    </article>
+    <div class="side">
+      <ul class="check-list">
+        <li><span class="tick">✓</span><div><b>텍스트 런 · 목록</b><small>하나의 텍스트 상자로 서식 유지</small></div></li>
+        <li><span class="tick">✓</span><div><b>표 · flex · grid</b><small>렌더링된 좌표 그대로 배치</small></div></li>
+        <li><span class="tick">✓</span><div><b>그라디언트 · 그림자</b><small>네이티브 채우기와 바깥 그림자</small></div></li>
+        <li><span class="tick">✓</span><div><b>SVG · 캔버스</b><small>벡터 SVG 또는 2x 이미지</small></div></li>
+        <li><span class="tick">✓</span><div><b>회전 · 확대</b><small>자식 도형과 텍스트까지 함께 변환</small></div></li>
+        <li><span class="tick">!</span><div><b>필터 · 블렌드 모드</b><small>그림으로 저장되어 편집 불가</small></div></li>
+      </ul>
+      <p class="cols">텍스트, 표, 도형, 그라디언트는 편집 가능한 개체가 됩니다. 필터와 블렌드 모드, 배경 클립 텍스트는 그림으로 저장됩니다. 다단(column-count)은 단마다 텍스트 상자 하나로 나뉘므로, 본문은 가능하면 일반 흐름으로 쓰세요.</p>
+    </div>
+  </div>
+  <aside class="notes">명령: 스크립트 경로는 프로젝트 기준 상대 경로입니다.</aside>
+</section>
+
+<!-- 7. Canvas animation -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Canvas · requestAnimationFrame</p>
+      <h2>입자 흐름장 — 실시간 렌더링</h2>
+    </div>
+    <p class="sub">시드 고정 난수 · 잔상 페이드</p>
+  </header>
+  <div class="split canvas-split">
+    <canvas id="flow" width="700" height="440" role="img" aria-label="입자 흐름 애니메이션"></canvas>
+    <aside class="card stats">
+      <div><p class="kpi-label">입자 수</p><p class="stat-value" id="particles">800</p></div>
+      <div><p class="kpi-label">프레임 속도</p><p class="stat-value"><span id="fps">60</span> fps</p></div>
+      <div><p class="kpi-label">프레임 간격</p><p class="stat-value"><span id="ms">16.7</span> ms</p></div>
+      <p class="note">캔버스는 변환 시 현재 프레임이 2x 이미지로 저장됩니다.</p>
+    </aside>
+  </div>
+  <aside class="notes">캔버스: 같은 시드로 항상 같은 배치에서 시작합니다.</aside>
+</section>
+
+<!-- 8. Summary -->
+<section class="slide">
+  <header class="head">
+    <div>
+      <p class="eyebrow">Summary</p>
+      <h2>정리</h2>
+    </div>
+  </header>
+  <div class="trio">
+    <article class="card">
+      <h3>구조</h3>
+      <ul>
+        <li>단일 HTML · 외부 의존성 없음</li>
+        <li>section.slide 1280×720 고정 크기</li>
+        <li>색은 :root 토큰으로 역할별 관리</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>데이터</h3>
+      <ul>
+        <li>차트는 데이터 배열에서 SVG로 생성</li>
+        <li>차트마다 표 뷰를 함께 배치</li>
+        <li>툴팁은 보조 수단, 값은 표에서도 확인</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>변환</h3>
+      <ul>
+        <li>텍스트·표·그라디언트 → 네이티브</li>
+        <li>SVG·캔버스 → 벡터 또는 2x 이미지</li>
+        <li>필터·블렌드 모드 → 그림으로 저장</li>
+      </ul>
+    </article>
+  </div>
+  <div class="closing">
+    <p class="grad-big">한 파일, 여덟 장</p>
+    <p class="sub">샘플 데이터 · 데모용 · 표시된 모든 수치는 가상의 값입니다</p>
+  </div>
+  <aside class="notes">정리: 구조, 데이터, 변환 세 관점으로 요약합니다.</aside>
+</section>
+
+<script>
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const SERIES = [1, 2, 3, 4].map((i) => css(`--s${i}`));
+  const C = {
+    surface: css('--surface'),
+    grid: css('--grid'),
+    axis: css('--axis'),
+    track: css('--track'),
+    ink: css('--ink'),
+    ink3: css('--ink-3'),
+  };
+
+  // Illustrative sample data
+  const MONTHS = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
+  const SALES = [3.1, 3.4, 3.6, 4.2, 4.7, 5.0, 5.3, 5.6, 5.8, 6.2, 6.5, 6.9];
+  const COSTS = [2.6, 2.7, 2.8, 2.9, 3.1, 3.0, 3.3, 3.4, 3.2, 3.5, 3.6, 3.7];
+  const CHANNELS = ['자사몰', '마켓', '파트너', '직접영업'];
+  const CHANNEL_SALES = [
+    [1.2, 1.3, 1.4, 1.6, 1.8, 2.0],
+    [0.9, 1.0, 1.1, 1.3, 1.4, 1.5],
+    [0.6, 0.7, 0.6, 0.8, 0.9, 0.9],
+    [0.4, 0.4, 0.5, 0.5, 0.6, 0.6],
+  ];
+  const BAR = 24;
+
+  const sum = (values) => values.reduce((a, b) => a + b, 0);
+  const svgEl = (tag, attrs, parent) => {
+    const node = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+    if (parent) parent.appendChild(node);
+    return node;
+  };
+  const svgText = (parent, str, attrs) => {
+    const node = svgEl('text', attrs, parent);
+    node.textContent = str;
+    return node;
+  };
+  const linePath = (pts) => pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
+  // Bar with optional 4px rounded data-end (top only; baseline stays square)
+  const barPath = (x, top, bottom, roundTop) => {
+    if (!roundTop) return `M${x} ${top}H${x + BAR}V${bottom}H${x}Z`;
+    const r = 4;
+    return `M${x} ${bottom}V${top + r}Q${x} ${top} ${x + r} ${top}H${x + BAR - r}Q${x + BAR} ${top} ${x + BAR} ${top + r}V${bottom}Z`;
+  };
+  const tipAt = (wrap, tip, event, str) => {
+    const box = wrap.getBoundingClientRect();
+    tip.textContent = str;
+    tip.style.left = `${event.clientX - box.left}px`;
+    tip.style.top = `${event.clientY - box.top}px`;
+    tip.classList.add('show');
+  };
+  const hideTip = (tip) => tip.classList.remove('show');
+
+  // KPI sparkline: 10% area wash, 2px line, end marker with a surface ring
+  function sparkline(host, values) {
+    const w = 240, h = 56, pad = 4;
+    const lo = Math.min(...values), hi = Math.max(...values);
+    const pts = values.map((v, i) => [
+      pad + (i / (values.length - 1)) * (w - pad * 2),
+      h - pad - ((v - lo) / (hi - lo || 1)) * (h - pad * 2),
+    ]);
+    const svg = svgEl('svg', { viewBox: `0 0 ${w} ${h}`, role: 'img', 'aria-label': `추세: ${values.join(', ')}` }, host);
+    svgEl('path', { d: `${linePath(pts)} L${w - pad} ${h} L${pad} ${h} Z`, fill: SERIES[0], 'fill-opacity': 0.1 }, svg);
+    svgEl('path', { d: linePath(pts), fill: 'none', stroke: SERIES[0], 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    const [ex, ey] = pts[pts.length - 1];
+    svgEl('circle', { cx: ex, cy: ey, r: 4, fill: SERIES[0], stroke: C.surface, 'stroke-width': 2 }, svg);
+  }
+
+  // Part-to-whole ring: one series against a recessive track
+  function donut(host, ratio) {
+    const size = 150, r = 60, c = size / 2, len = 2 * Math.PI * r;
+    const svg = svgEl('svg', { viewBox: `0 0 ${size} ${size}`, role: 'img', 'aria-label': `목표 달성률 ${Math.round(ratio * 100)}%` }, host);
+    const ring = { cx: c, cy: c, r, fill: 'none', 'stroke-width': 16 };
+    svgEl('circle', { ...ring, stroke: C.track }, svg);
+    svgEl('circle', { ...ring, stroke: SERIES[0], 'stroke-dasharray': `${len * ratio} ${len}`, transform: `rotate(-90 ${c} ${c})` }, svg);
+  }
+
+  // Line + area chart with crosshair hover; n = number of months shown
+  function drawTrend(n) {
+    const wrap = document.getElementById('trend');
+    const tip = wrap.querySelector('.tip');
+    wrap.querySelector('svg')?.remove();
+
+    const W = 640, H = 372, L = 52, R = 584, T = 16, B = 336;
+    const xAt = (i) => L + (i / (n - 1)) * (R - L);
+    const yAt = (v) => B - (v / 8) * (B - T);
+    const sales = SALES.slice(0, n), costs = COSTS.slice(0, n);
+    const salesPts = sales.map((v, i) => [xAt(i), yAt(v)]);
+    const costPts = costs.map((v, i) => [xAt(i), yAt(v)]);
+
+    const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `${n}개월 매출과 비용 추이` }, wrap);
+    [0, 2, 4, 6, 8].forEach((tick) => {
+      svgEl('line', { x1: L, x2: R, y1: yAt(tick), y2: yAt(tick), stroke: tick ? C.grid : C.axis }, svg);
+      svgText(svg, `${tick}`, { x: L - 12, y: yAt(tick) + 5, 'text-anchor': 'end', fill: C.ink3, 'font-size': 14 });
+    });
+    MONTHS.slice(0, n).forEach((m, i) => svgText(svg, m, { x: xAt(i), y: B + 24, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 14 }));
+
+    svgEl('path', { d: `${linePath(salesPts)} L${xAt(n - 1)} ${B} L${L} ${B} Z`, fill: SERIES[0], 'fill-opacity': 0.1 }, svg);
+    [[costPts, SERIES[1]], [salesPts, SERIES[0]]].forEach(([pts, color]) => {
+      svgEl('path', { d: linePath(pts), fill: 'none', stroke: color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    });
+    [[salesPts, sales, SERIES[0]], [costPts, costs, SERIES[1]]].forEach(([pts, vals, color]) => {
+      const [x, y] = pts[pts.length - 1];
+      svgEl('circle', { cx: x, cy: y, r: 4, fill: color, stroke: C.surface, 'stroke-width': 2 }, svg);
+      svgText(svg, vals[vals.length - 1].toFixed(1), { x: x + 12, y: y + 5, fill: C.ink, 'font-size': 15, 'font-weight': 700 });
+    });
+
+    const cross = svgEl('line', { x1: L, x2: L, y1: T, y2: B, stroke: C.ink3, visibility: 'hidden' }, svg);
+    const hit = svgEl('rect', { x: L, y: T, width: R - L, height: B - T, fill: 'transparent' }, svg);
+    hit.addEventListener('mousemove', (event) => {
+      const box = svg.getBoundingClientRect();
+      const x = (event.clientX - box.left) * (W / box.width);
+      const k = Math.min(n - 1, Math.max(0, Math.round(((x - L) / (R - L)) * (n - 1))));
+      cross.setAttribute('x1', xAt(k));
+      cross.setAttribute('x2', xAt(k));
+      cross.setAttribute('visibility', 'visible');
+      tipAt(wrap, tip, event, `${MONTHS[k]} · 매출 ${sales[k].toFixed(1)}억 · 비용 ${costs[k].toFixed(1)}억`);
+    });
+    hit.addEventListener('mouseleave', () => {
+      cross.setAttribute('visibility', 'hidden');
+      hideTip(tip);
+    });
+  }
+
+  // Stacked bars: 2px surface gaps, rounded top, per-segment hover, totals at the tip
+  function drawStacks() {
+    const wrap = document.getElementById('stacks');
+    const tip = wrap.querySelector('.tip');
+    const months = MONTHS.slice(0, 6);
+    const W = 1072, H = 200, L = 48, R = 1064, T = 14, B = 166;
+    const yAt = (v) => B - (v / 6) * (B - T);
+    const band = (R - L) / months.length;
+
+    const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': '채널별 월 매출 스택 막대' }, wrap);
+    [0, 2, 4, 6].forEach((tick) => {
+      svgEl('line', { x1: L, x2: R, y1: yAt(tick), y2: yAt(tick), stroke: tick ? C.grid : C.axis }, svg);
+      svgText(svg, `${tick}`, { x: L - 12, y: yAt(tick) + 5, 'text-anchor': 'end', fill: C.ink3, 'font-size': 14 });
+    });
+    months.forEach((month, i) => {
+      const cx = L + (i + 0.5) * band;
+      let cum = 0;
+      CHANNEL_SALES.forEach((series, c) => {
+        const v = series[i];
+        const isTop = c === CHANNEL_SALES.length - 1;
+        const bottom = yAt(cum) - (c === 0 ? 0 : 1); // 1px inset on each side → 2px gap
+        cum += v;
+        const top = yAt(cum) + (isTop ? 0 : 1);
+        const seg = svgEl('path', { d: barPath(cx - BAR / 2, top, bottom, isTop), fill: SERIES[c] }, svg);
+        seg.addEventListener('mousemove', (event) => tipAt(wrap, tip, event, `${month} · ${CHANNELS[c]} ${v.toFixed(1)}억`));
+        seg.addEventListener('mouseleave', () => hideTip(tip));
+      });
+      const total = sum(CHANNEL_SALES.map((s) => s[i]));
+      svgText(svg, total.toFixed(1), { x: cx, y: yAt(total) - 8, 'text-anchor': 'middle', fill: C.ink, 'font-size': 15, 'font-weight': 700 });
+      svgText(svg, month, { x: cx, y: B + 24, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 14 });
+    });
+  }
+
+  // Table twins: every chart has its numbers in a table
+  function quarterTable() {
+    const quarters = [0, 1, 2, 3].map((q) => {
+      const sales = sum(SALES.slice(q * 3, q * 3 + 3));
+      const costs = sum(COSTS.slice(q * 3, q * 3 + 3));
+      return { name: `${q + 1}분기`, sales, costs, margin: ((sales - costs) / sales) * 100 };
+    });
+    const rows = quarters.map((r, i) => {
+      const prev = quarters[i - 1];
+      let note = '<small class="muted">기준</small>';
+      if (prev) {
+        const diff = Number(r.margin.toFixed(1)) - Number(prev.margin.toFixed(1)); // compare the displayed values
+        const up = diff >= 0;
+        note = `<small class="${up ? 'good' : 'bad'}">${up ? '▲' : '▼'} ${Math.abs(diff).toFixed(1)}%p</small>`;
+      }
+      return `<tr><td>${r.name}</td><td>${r.sales.toFixed(1)}</td><td>${r.costs.toFixed(1)}</td><td>${r.margin.toFixed(1)}%${note}</td></tr>`;
+    });
+    const annual = { sales: sum(SALES), costs: sum(COSTS) };
+    annual.margin = ((annual.sales - annual.costs) / annual.sales) * 100;
+    rows.push(`<tr class="total"><td>연간</td><td>${annual.sales.toFixed(1)}</td><td>${annual.costs.toFixed(1)}</td><td>${annual.margin.toFixed(1)}%</td></tr>`);
+    document.getElementById('quarters').innerHTML = `
+      <thead><tr><th>분기</th><th>매출</th><th>비용</th><th>이익률</th></tr></thead>
+      <tbody>${rows.join('')}</tbody>`;
+  }
+
+  function channelTable() {
+    const months = MONTHS.slice(0, 6);
+    const totals = months.map((_, i) => sum(CHANNEL_SALES.map((s) => s[i])));
+    const rows = CHANNELS.map((name, c) => `
+      <tr><td><i class="sw-${c + 1}"></i>${name}</td>${CHANNEL_SALES[c].map((v) => `<td>${v.toFixed(1)}</td>`).join('')}<td>${sum(CHANNEL_SALES[c]).toFixed(1)}</td></tr>`);
+    rows.push(`<tr class="total"><td>합계</td>${totals.map((v) => `<td>${v.toFixed(1)}</td>`).join('')}<td>${sum(totals).toFixed(1)}</td></tr>`);
+    document.getElementById('channels').innerHTML = `
+      <thead><tr><th>채널</th>${months.map((m) => `<th>${m}</th>`).join('')}<th>합계</th></tr></thead>
+      <tbody>${rows.join('')}</tbody>`;
+  }
+
+  // Range filter: one row above the chart, re-renders against the same slice
+  const rangeButtons = document.querySelectorAll('[data-range]');
+  const setRange = (n) => {
+    rangeButtons.forEach((btn) => {
+      const on = Number(btn.dataset.range) === n;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', String(on));
+    });
+    drawTrend(n);
+  };
+  rangeButtons.forEach((btn) => btn.addEventListener('click', () => setRange(Number(btn.dataset.range))));
+
+  document.querySelectorAll('[data-spark]').forEach((host) => sparkline(host, host.dataset.spark.split(',').map(Number)));
+  document.querySelectorAll('[data-ratio]').forEach((host) => donut(host, Number(host.dataset.ratio)));
+  setRange(12);
+  drawStacks();
+  quarterTable();
+  channelTable();
+
+  // Seeded PRNG so every load starts from the same particle layout
+  function mulberry32(seed) {
+    return () => {
+      seed = (seed + 0x6d2b79f5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const canvas = document.getElementById('flow');
+  const ctx = canvas.getContext('2d');
+  const { width: W, height: H } = canvas;
+  const rand = mulberry32(42);
+  const particles = Array.from({ length: 800 }, (_, i) => ({ x: rand() * W, y: rand() * H, c: i % 4 }));
+  const fpsEl = document.getElementById('fps');
+  const msEl = document.getElementById('ms');
+  let time = 0, last = performance.now(), acc = 0, frames = 0;
+
+  ctx.fillStyle = C.surface;
+  ctx.fillRect(0, 0, W, H);
+
+  function frame(now) {
+    const dt = now - last;
+    last = now;
+    time += 0.004;
+    ctx.fillStyle = 'rgba(26, 26, 25, 0.08)'; // fade toward the surface color → trails
+    ctx.fillRect(0, 0, W, H);
+    for (const p of particles) {
+      const angle = (Math.sin(p.x * 0.006 + time) + Math.cos(p.y * 0.008 - time * 0.7)) * Math.PI;
+      p.x += Math.cos(angle) * 1.4;
+      p.y += Math.sin(angle) * 1.4;
+      if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) {
+        p.x = rand() * W;
+        p.y = rand() * H;
+        continue;
+      }
+      ctx.fillStyle = SERIES[p.c];
+      ctx.fillRect(p.x, p.y, 1.6, 1.6);
+    }
+    acc += dt;
+    frames += 1;
+    if (acc >= 500) {
+      fpsEl.textContent = Math.round((frames * 1000) / acc);
+      msEl.textContent = dt.toFixed(1);
+      acc = 0;
+      frames = 0;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
